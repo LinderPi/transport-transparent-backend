@@ -1,13 +1,16 @@
 from rest_framework import serializers
-from .models import Company, CsvFile
+from .models import Company, Route
 
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Company
-        fields = ['id', 'name', 'tonnage', 'distance_train', 'distance_truck', 'distance_ship', 'distance_plane',
-                  'distance_bike', 'distance_others', 'transports_per_day', 'short_term']
+        fields = ['id', 'name', 'routes']
 
-class CsvFileSerializer(serializers.HyperlinkedModelSerializer):
+class RouteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = CsvFile
-        fields = ['id', 'upload_time', 'file']
+        model = Route
+        fields = ['id', 'start', 'end', 'product', 'quantity', 'duration_max', 'distance_train', 'duration_train',
+                  'energy_train', 'distance_truck', 'duration_truck', 'energy_truck', 'distance_ship', 'duration_ship',
+                  'energy_ship', 'distance_plane', 'duration_plane', 'energy_plane', 'distance_bike', 'duration_bike',
+                  'energy_bike', 'name_others', 'distance_others', 'duration_others', 'energy_others', 'energy_goods',
+                  'emissions']

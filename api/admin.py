@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Company, CsvFile
+from .models import Company, Route
 
 admin.site.register(Company)
-admin.site.register(CsvFile)
+admin.site.register(Route)
