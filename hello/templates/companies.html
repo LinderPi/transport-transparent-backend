@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="{% static 'lang-logo.png'%}">
+    </a>
+    <h1>About Transport Transparent</h1>
+    <p>Blahblah.</p>
+    {% for company in companies %}
+
+    <div class="col-md-4">
+
+        <div class="card mb-2">
+
+            <div class="card-body">
+
+                <h5 class="card-title">{{ company.name }}</h5>
+
+                <p class="card-text">{{ project.tonnage }}</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+  </div>
+</div>
+<div class="container">
+  Huhu.
+</div>
+{% endblock %}
