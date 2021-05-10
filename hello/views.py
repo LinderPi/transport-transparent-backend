@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from .models import Greeting, Company, CsvFile
+from .models import Greeting
+from api.models import Company, CsvFile
 
 # Create your views here.
 def index(request):
@@ -10,8 +11,27 @@ def index(request):
 
 def calculator(request):
     return render(request, "calculator.html")
+
 def about(request):
-    return render(request, "about.html")
+    return render(request, "calculator.html")
+
+def companies(request):
+    companies = Company.objects.all()
+
+    context= {'companies': companies}
+    return render(request, "about.html", context)
+
+def company(request, pk):
+
+    company = Company.objects.get(pk=pk)
+
+    context = {
+
+        'company': company
+
+    }
+
+    return render(request, 'company.html', context)
 
 def db(request):
 
