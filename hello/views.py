@@ -4,6 +4,9 @@ from django.http import HttpResponse
 from .models import Greeting
 from api.models import Company, CsvFile
 
+import logging
+logger = logging.getLogger(__name__)
+
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
@@ -17,9 +20,9 @@ def about(request):
 
 def companies(request):
     companies = Company.objects.all()
-
+    logger.warning(companies)
     context= {'companies': companies}
-    return render(request, "about.html", context)
+    return render(request, "companies.html", context)
 
 def company(request, pk):
 
