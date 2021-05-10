@@ -1,9 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
-from api.models import Company, CsvFile
+from api.models import Company
 from .models import Greeting
-from api.models import Company, CsvFile
 
 import pandas as pd
 

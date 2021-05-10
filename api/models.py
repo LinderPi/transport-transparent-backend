@@ -14,7 +14,3 @@ class Company(models.Model):
 
     def __str__(self):
         return self.name
-
-class CsvFile(models.Model):
-    upload_time = models.DateTimeField(auto_now=True)
-    file = models.FileField(upload_to="uploads/")
