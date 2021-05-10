@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="jumbotron text-center">
+  <div class="container">
+    <a href="/" class="lang-logo">
+      <img src="{% static 'lang-logo.png'%}">
+    </a>
+    <h1>Transportdaten analysieren</h1>
+    <p>CSV hochladen um Analyse zu starten.</p>
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="file1"> Upload a file</label>
+      <input type="file" id="file1" name="file">
+      <button class="btn btn-lg btn-primary" type="submit">Upload</button>
+  </form>
+    
+ </div>
+</div>
+<div class="container">
+
+</div>
+{% endblock %}

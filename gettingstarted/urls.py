@@ -17,6 +17,8 @@ import hello.views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", hello.views.index, name="index"),
+    path('about',hello.views.about, name="about"),
+    path('calculator',hello.views.calculator, name="calculator"),
     path("db/", hello.views.db, name="db"),
     path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
