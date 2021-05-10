@@ -1,8 +1,8 @@
 from rest_framework import permissions, viewsets
-from .models import Test
-from .serializers import TestSerializer
+from .models import Company
+from .serializers import CompanySerializer
 
-class TestViewSet(viewsets.ModelViewSet):
-    queryset = Test.objects.all()
-    serializer_class = TestSerializer
+class CompanyViewSet(viewsets.ModelViewSet):
+    queryset = Company.objects.all()
+    serializer_class = CompanySerializer
     permission_classes = [permissions.IsAuthenticated]

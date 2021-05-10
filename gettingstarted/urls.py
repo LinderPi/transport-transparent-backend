@@ -15,9 +15,9 @@ import hello.views
 # Learn more here: https://docs.djangoproject.com/en/2.1/topics/http/urls/
 
 urlpatterns = [
+    path("admin/", admin.site.urls),
     path("", hello.views.index, name="index"),
     path("db/", hello.views.db, name="db"),
-    path("admin/", admin.site.urls),
     path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
