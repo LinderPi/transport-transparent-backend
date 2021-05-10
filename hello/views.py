@@ -3,6 +3,10 @@ from django.http import HttpResponse
 
 from api.models import Company, CsvFile
 from .models import Greeting
+from api.models import Company, CsvFile
+
+import logging
+logger = logging.getLogger(__name__)
 
 # Create your views here.
 def index(request):
@@ -19,7 +23,25 @@ def calculator(request):
     return render(request, "calculator.html") # TODO: go to results
 
 def about(request):
-    return render(request, "about.html")
+    return render(request, "calculator.html")
+
+def companies(request):
+    companies = Company.objects.all()
+    logger.warning(companies)
+    context= {'companies': companies}
+    return render(request, "companies.html", context)
+
+def company(request, pk):
+
+    company = Company.objects.get(pk=pk)
+
+    context = {
+
+        'company': company
+
+    }
+
+    return render(request, 'company.html', context)
 
 def db(request):
 

@@ -22,4 +22,6 @@ urlpatterns = [
     path("db/", hello.views.db, name="db"),
     path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path("companies", hello.views.companies, name="companies"),
+    path("companies/<int:pk>/", hello.views.company, name="company"),
 ]
