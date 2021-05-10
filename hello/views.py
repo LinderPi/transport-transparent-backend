@@ -38,6 +38,7 @@ def company(request, pk):
 
     company = Company.objects.get(pk=pk)
 
+    
     context = {
 
         'company': company

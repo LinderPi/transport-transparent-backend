@@ -23,5 +23,5 @@ urlpatterns = [
     path('api/', include('api.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path("companies", hello.views.companies, name="companies"),
-    path("companies/<int:pk>/", hello.views.company, name="company"),
+    path("company/<int:pk>/", hello.views.company, name="company"),
 ]
