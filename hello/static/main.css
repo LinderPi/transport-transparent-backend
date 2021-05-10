@@ -13,7 +13,7 @@
     color: gray;
 }
 
-.bewertung {
+.bewertung, .upload {
     margin: auto;
     font-size: 25px;
     width: 600px;
@@ -21,6 +21,10 @@
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;
+}
+.upload input {
+    font-size: 15px;
+    margin-bottom: 15px; 
 }
 
 .headerimage {
@@ -31,4 +35,8 @@
 body, .navbar-default {
     background-color: rgb(240,240,240);
     border-width: 0;
+}
+
+.center {
+    margin: auto;
 }
