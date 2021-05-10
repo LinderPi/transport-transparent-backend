@@ -3,17 +3,81 @@
 
 {% block content %}
 
-<div class="jumbotron text-center">
+<div class=" text-center">
   <div class="container">
 
-    <h1>{{ company.name }}</h1>
-    <p>Some general statistics.</p>
+    <h1>{{ name }}</h1>
+    
+    <p>
+      {% if rating == "bronze" %} 
+        <img src="{% static 'bronze.png'%}"> 
+      {% endif %}
+  
+      {% if rating == "silver" %} 
+      <img src="{% static 'silver.png'%}"> 
+    {% endif %}
+    
+    {% if rating == "gold" %} 
+    <img src="{% static 'gold.png'%}"> 
+  {% endif %}
+    </p>
 
   </div>
 </div>
-<div class="container text-center">
-  <div class="container">
-    <span>Zulieferung </span> <span class="yellow glyphicon glyphicon-star"></span><span class="gray glyphicon glyphicon-star"></span>
+
+
+<div class="bewertung">
+  <div class="row ">
+    <div class="col-sm-6">Zulieferung </div><div class="col-sm-6">{% for i in zulieferung_yellow %}<span class="yellow glyphicon glyphicon-star"></span>{% endfor %} {% for i in zulieferung_gray %}<span class="gray glyphicon glyphicon-star"></span>{% endfor %}</div>
+  </div>
+  <div class=" row">
+    <div class="col-sm-6">interner Transport </div> <div class="col-sm-6">{% for i in intern_yellow %}<span class="yellow glyphicon glyphicon-star"></span>{% endfor %} {% for i in intern_gray %}<span class="gray glyphicon glyphicon-star"></span>{% endfor %}</div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">Zustellung </div> <div class="col-sm-6">{% for i in zustellung_yellow %}<span class="yellow glyphicon glyphicon-star"></span>{% endfor %} {% for i in zustellung_gray %}<span class="gray glyphicon glyphicon-star"></span>{% endfor %}</div>
   </div>
 </div>
+<div id="emmissions-chart"></div>
+<script>
+Highcharts.chart('emmissions-chart', {
+    chart: {
+        type: 'pie',
+        backgroundColor:'rgba(255, 255, 255, 0)'
+    },
+    title: {
+        text: 'Emissionen'
+    },
+    plotOptions: {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+            }
+        }
+    },
+    series: [{
+        name: 'Emissionen',
+        colorByPoint: true,
+        data: [{
+            name: 'Flugzeug',
+            y: {{ emissions.flug }}
+        }, {
+            name: 'LKW',
+            y: {{ emissions.bahn }}
+        }, {
+            name: 'Bahn',
+            y: {{ emissions.lkw }}
+        }, {
+            name: 'Sonstige',
+            y: {{ emissions.sonstige }}
+        }]
+    }]
+});
+
+
+
+</script>
+
 {% endblock %}

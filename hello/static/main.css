@@ -12,3 +12,23 @@
 .grey {
     color: gray;
 }
+
+.bewertung {
+    margin: auto;
+    font-size: 25px;
+    width: 600px;
+    background-color: rgb(255, 255, 255);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.headerimage {
+    width: 250px;
+    height: 110px;
+    display: inline-block;
+}
+body, .navbar-default {
+    background-color: rgb(240,240,240);
+    border-width: 0;
+}
