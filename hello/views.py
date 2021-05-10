@@ -5,6 +5,8 @@ from api.models import Company, CsvFile
 from .models import Greeting
 from api.models import Company, CsvFile
 
+import pandas as pd
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -18,7 +20,8 @@ def calculator(request):
         return render(request, "calculator.html")
 
     csv_file = request.FILES['file']
-    print(csv_file.read().decode('UTF-8'))
+    df_csv = pd.read_csv(csv_file)
+    print(df_csv)
 
     return render(request, "calculator.html") # TODO: go to results
 
