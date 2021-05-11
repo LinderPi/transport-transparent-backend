@@ -179,15 +179,15 @@ def evaluateCompany(company):
         zulieferung = 3
     
 
-    if (eff_internal>260) :
+    if (eff_internal>300) :
         intern = 1
-    elif (eff_in>200):
+    elif (eff_internal>200):
         intern = 2
     else :
         intern = 3
     
 
-    if (eff_out>260) :
+    if (eff_out>300) :
         zustellung = 1
     elif (eff_out>200):
         zustellung = 2
