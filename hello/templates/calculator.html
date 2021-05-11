@@ -10,8 +10,8 @@
     <form action="" method="POST" class="dropzone" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="container upload">
-      <input type="text" id="company" name="company" placeholder="Unternehmen" required>
-      <input type="file" id="file1" name="file" class="center" required>
+      <input type="text" id="company" class="form-control" name="company" placeholder="Unternehmen" required>
+      <input type="file" id="file1" class="form-control-file"name="file" class="center" required>
       <button class="btn btn-lg btn-primary" type="submit">Upload</button>
     </div>
   </form>
