@@ -20,7 +20,7 @@ urlpatterns = [
     path("api/", include("api.urls")),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 
-    # path("",  name=""),
+    path("", hello.views.calculator, name="calculator"),
     path("about/", hello.views.about, name="about"),
     path("calculator/", hello.views.calculator, name="calculator"),
     path("companies/", hello.views.companies, name="companies"),
