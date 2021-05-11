@@ -118,8 +118,8 @@ def evaluateCompany(company):
 
     total_emissions = emissions_train + emissions_truck + emissions_ship + emissions_plane + emissions_others
 
-    zulieferung = 4
-    intern = 3
+    zulieferung = 3
+    intern = 2
     zustellung = 1
 
 
