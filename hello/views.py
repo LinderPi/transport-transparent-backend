@@ -199,6 +199,7 @@ def evaluateCompany(company):
     # intern = 2
     # zustellung = 1
 
+        
 
     context = {
         'name': company.name,
@@ -218,7 +219,12 @@ def evaluateCompany(company):
             'sonstige': emissions_others * 0 * 100 / total_emissions,
         }
     }
-
+    if ((zulieferung+intern+zustellung)/3 < 1.5 ):
+        context['rating'] = 'bronze'
+    elif ((zulieferung+intern+zustellung)/3 < 2.5 ):
+        context['rating'] = 'silver'
+    else:
+        context['rating'] = 'gold'
     return context
 
 def company(request, pk):
