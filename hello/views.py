@@ -171,25 +171,25 @@ def evaluateCompany(company):
     eff_in = in_emissions / in_tkm
     eff_internal = internal_emissions / internal_tkm
     eff_out = out_emissions / out_tkm
-    if (eff_in>200):
+    if (eff_in>260):
         zulieferung = 1
-    elif (eff_in>41):
+    elif (eff_in>200):
         zulieferung = 2
     else :
         zulieferung = 3
     
 
-    if (eff_internal>200) :
+    if (eff_internal>260) :
         intern = 1
-    elif (eff_in>41):
+    elif (eff_in>200):
         intern = 2
     else :
         intern = 3
     
 
-    if (eff_out>61) :
+    if (eff_out>260) :
         zustellung = 1
-    elif (eff_out>41):
+    elif (eff_out>200):
         zustellung = 2
     else :
         zustellung = 3
