@@ -7,7 +7,7 @@
   <div class="container">
     <h1>Transportdaten analysieren</h1>
     <p>CSV hochladen um Analyse zu starten.</p>
-    <form action="" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" class="dropzone" enctype="multipart/form-data">
       {% csrf_token %}
       <div class="container upload">
       <input type="text" id="company" name="company" placeholder="Unternehmen" required>
