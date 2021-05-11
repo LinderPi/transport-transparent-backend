@@ -96,27 +96,70 @@ def evaluateCompany(company):
     # evaluate routes
     for route in company.routes.all():
         if route.transportation == 'train':
-            temp = route.quantity * route.distance * route.frequency * 17
+            temp = route.quantity * route.distance * route.frequency
             emissions[route.delivery]['train'] += temp
             emissions_train += temp
         elif route.transportation == 'truck':
-            temp = route.quantity * route.distance * route.frequency * 111
+            temp = route.quantity * route.distance * route.frequency
             emissions[route.delivery]['truck'] += temp
             emissions_truck += temp
         elif route.transportation == 'ship':
-            temp = route.quantity * route.distance * route.frequency * 30
+            temp = route.quantity * route.distance * route.frequency
             emissions[route.delivery]['ship'] += temp
             emissions_ship += temp
         elif route.transportation == 'plane':
-            temp = route.quantity * route.distance * route.frequency * 713
+            temp = route.quantity * route.distance * route.frequency
             emissions[route.delivery]['plane'] += temp
             emissions_plane += temp
         elif route.transportation == 'others':
-            temp = route.quantity * route.distance * route.frequency * 0
+            temp = route.quantity * route.distance * route.frequency
             emissions[route.delivery]['others'] += temp
             emissions_others += temp
 
-    total_emissions = emissions_train + emissions_truck + emissions_ship + emissions_plane + emissions_others
+    # compute tkm
+    internal_tkm = 0
+    for transportation in emissions['internal']:
+        internal_tkm += emissions['internal'][transportation]
+    in_tkm = 0
+    for transportation in emissions['in']:
+        in_tkm += emissions['in'][transportation]
+    out_tkm = 0
+    for transportation in emissions['out']:
+        out_tkm += emissions['out'][transportation]
+    total_tkm = internal_tkm + in_tkm + out_tkm
+
+    print(total_tkm)
+
+    # convert tkm to CO2 emissions
+    emissions['internal']['train'] *= 17
+    emissions['internal']['truck'] *= 111
+    emissions['internal']['ship'] *= 30
+    emissions['internal']['plane'] *= 713
+    emissions['internal']['others'] *= 0
+    emissions['in']['train'] *= 17
+    emissions['in']['truck'] *= 111
+    emissions['in']['ship'] *= 30
+    emissions['in']['plane'] *= 713
+    emissions['in']['others'] *= 0
+    emissions['out']['train'] *= 17
+    emissions['out']['truck'] *= 111
+    emissions['out']['ship'] *= 30
+    emissions['out']['plane'] *= 713
+    emissions['out']['others'] *= 0
+
+    # compute CO2 emissions
+    internal_emissions = 0
+    for transportation in emissions['internal']:
+        internal_emissions += emissions['internal'][transportation]
+    in_emissions = 0
+    for transportation in emissions['in']:
+        in_emissions += emissions['in'][transportation]
+    out_emissions = 0
+    for transportation in emissions['out']:
+        out_emissions += emissions['out'][transportation]
+    total_emissions = internal_emissions + in_emissions + out_emissions
+
+    total = total_emissions / total_tkm
 
     zulieferung = 4
     intern = 3
@@ -134,11 +177,11 @@ def evaluateCompany(company):
         'zustellung_yellow': range(zustellung),
         'zustellung_gray': range(5-zustellung),
         'emissions': {
-            'bahn': emissions_train * 100 / total_emissions,
-            'lkw': emissions_truck * 100 / total_emissions,
-            'schiff': emissions_ship * 100 / total_emissions,
-            'flug': emissions_plane * 100 / total_emissions,
-            'sonstige': emissions_others * 100 / total_emissions,
+            'bahn': emissions_train * 17 * 100 / total_emissions,
+            'lkw': emissions_truck * 111 * 100 / total_emissions,
+            'schiff': emissions_ship * 30 * 100 / total_emissions,
+            'flug': emissions_plane * 713 * 100 / total_emissions,
+            'sonstige': emissions_others * 0 * 100 / total_emissions,
         }
     }
 
