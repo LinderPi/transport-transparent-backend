@@ -159,11 +159,45 @@ def evaluateCompany(company):
         out_emissions += emissions['out'][transportation]
     total_emissions = internal_emissions + in_emissions + out_emissions
 
+    if(total_tkm == 0):
+        total_tkm = 1
+        in_tkm = 1
+        out_tkm = 1
+        internal_tkm = 1
+        total_emissions = 1
     total = total_emissions / total_tkm
+    
 
-    zulieferung = 3
-    intern = 2
-    zustellung = 1
+    eff_in = in_emissions / in_tkm
+    eff_internal = internal_emissions / internal_tkm
+    eff_out = out_emissions / out_tkm
+    if (eff_in>200):
+        zulieferung = 1
+    elif (eff_in>41):
+        zulieferung = 2
+    else :
+        zulieferung = 3
+    
+
+    if (eff_internal>200) :
+        intern = 1
+    elif (eff_in>41):
+        intern = 2
+    else :
+        intern = 3
+    
+
+    if (eff_out>61) :
+        zustellung = 1
+    elif (eff_out>41):
+        zustellung = 2
+    else :
+        zustellung = 3
+    
+
+    # zulieferung = 3
+    # intern = 2
+    # zustellung = 1
 
 
     context = {
