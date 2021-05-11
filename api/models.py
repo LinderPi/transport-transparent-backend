@@ -1,7 +1,8 @@
 from django.db import models
 
 class Route(models.Model):
-    delivery = models.CharField(max_length=100, null=True) # TODO: define choices
+    delivery = models.CharField(max_length=10,
+        choices=[("internal", "internal"), ("in", "in"), ("out", "out")], default="internal")
     start = models.CharField(max_length=100, null=True) # TODO: define format
     end = models.CharField(max_length=100, null=True) # TODO: define format
     product = models.CharField(max_length=100, null=True) # TODO: define choices
@@ -30,7 +31,7 @@ class Route(models.Model):
     energy_others = models.CharField(max_length=100, null=True) # TODO: define choices
 
     energy_goods = models.PositiveIntegerField(default=0) # in kWh
-    emissions = models.PositiveIntegerField(default=0) # TODO: probably to be calculated
+    frequency = models.PositiveIntegerField(default=0) # rides per year
 
 class Company(models.Model):
     name = models.CharField(max_length=100, unique=True)

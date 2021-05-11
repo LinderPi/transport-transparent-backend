@@ -51,7 +51,7 @@ def calculator(request):
                 duration_others=df_route['duration_others'],
                 energy_others=df_route['energy_others'],
                 energy_goods=df_route['energy_goods'],
-                emissions=df_route['emissions'],
+                frequency=df_route['frequency'],
             )
             route.save()
             route_ids.append(route.id)
