@@ -161,8 +161,8 @@ def evaluateCompany(company):
 
     total = total_emissions / total_tkm
 
-    zulieferung = 4
-    intern = 3
+    zulieferung = 3
+    intern = 2
     zustellung = 1
 
 
@@ -171,11 +171,11 @@ def evaluateCompany(company):
         'id': company.id,
         'rating': 'silver',
         'zulieferung_yellow': range(zulieferung),
-        'zulieferung_gray': range(5-zulieferung),
+        'zulieferung_gray': range(3-zulieferung),
         'intern_yellow': range(intern),
-        'intern_gray': range(5-intern),
+        'intern_gray': range(3-intern),
         'zustellung_yellow': range(zustellung),
-        'zustellung_gray': range(5-zustellung),
+        'zustellung_gray': range(3-zustellung),
         'emissions': {
             'bahn': emissions_train * 17 * 100 / total_emissions,
             'lkw': emissions_truck * 111 * 100 / total_emissions,
