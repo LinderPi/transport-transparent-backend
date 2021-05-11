@@ -25,31 +25,13 @@ def calculator(request):
         route_ids = []
         for _, df_route in df_csv.iterrows():
             route = Route(
-                delivery=df_route['delivery'],
                 start=df_route['start'],
                 end=df_route['end'],
-                product=df_route['product'],
+                distance=df_route['distance'],
+                duration=df_route['duration'],
                 quantity=df_route['quantity'],
-                duration_max=df_route['duration_max'],
-                distance_train=df_route['distance_train'],
-                duration_train=df_route['duration_train'],
-                energy_train=df_route['energy_train'],
-                distance_truck=df_route['distance_truck'],
-                duration_truck=df_route['duration_truck'],
-                energy_truck=df_route['energy_truck'],
-                distance_ship=df_route['distance_ship'],
-                duration_ship=df_route['duration_ship'],
-                energy_ship=df_route['energy_ship'],
-                distance_plane=df_route['distance_plane'],
-                duration_plane=df_route['duration_plane'],
-                energy_plane=df_route['energy_plane'],
-                distance_bike=df_route['distance_bike'],
-                duration_bike=df_route['duration_bike'],
-                energy_bike=df_route['energy_bike'],
-                name_others=(None if math.isnan(df_route['name_others']) else df_route['name_others)']),
-                distance_others=df_route['distance_others'],
-                duration_others=df_route['duration_others'],
-                energy_others=df_route['energy_others'],
+                transportation=df_route['transportation'],
+                delivery=df_route['delivery'],
                 energy_goods=df_route['energy_goods'],
                 frequency=df_route['frequency'],
             )
@@ -99,7 +81,7 @@ def evaluateCompany(company):
     }
 # Auswertung der Routen
     for route in company.routes.all():
-        totalemissions['flug'] += route.distance_plane * route.quantity * 20
+        totalemissions['flug'] += route.distance * route.quantity * 20
 
 
     zulieferung = 4

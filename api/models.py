@@ -1,35 +1,16 @@
 from django.db import models
 
 class Route(models.Model):
-    delivery = models.CharField(max_length=10,
-        choices=[("internal", "internal"), ("in", "in"), ("out", "out")], default="internal")
     start = models.CharField(max_length=100, null=True) # TODO: define format
     end = models.CharField(max_length=100, null=True) # TODO: define format
-    product = models.CharField(max_length=100, null=True) # TODO: define choices
+    distance = models.PositiveIntegerField(default=0) # in meters
+    duration = models.PositiveIntegerField(default=0) # in minutes
     quantity = models.PositiveIntegerField(default=0) # in tons
-    duration_max = models.PositiveIntegerField(default=0) # in minutes
-
-    # distances in meters, durations in minutes and energy in kWh
-    distance_train = models.PositiveIntegerField(default=0)
-    duration_train = models.PositiveIntegerField(default=0)
-    energy_train = models.CharField(max_length=100, null=True) # TODO: define choices
-    distance_truck = models.PositiveIntegerField(default=0)
-    duration_truck = models.PositiveIntegerField(default=0)
-    energy_truck = models.CharField(max_length=100, null=True) # TODO: define choices
-    distance_ship = models.PositiveIntegerField(default=0)
-    duration_ship = models.PositiveIntegerField(default=0)
-    energy_ship = models.CharField(max_length=100, null=True) # TODO: define choices
-    distance_plane = models.PositiveIntegerField(default=0)
-    duration_plane = models.PositiveIntegerField(default=0)
-    energy_plane = models.CharField(max_length=100, null=True) # TODO: define choices
-    distance_bike = models.PositiveIntegerField(default=0)
-    duration_bike = models.PositiveIntegerField(default=0)
-    energy_bike = models.CharField(max_length=100, null=True) # TODO: define choices
-    name_others = models.CharField(max_length=100, null=True)
-    distance_others = models.PositiveIntegerField(default=0)
-    duration_others = models.PositiveIntegerField(default=0)
-    energy_others = models.CharField(max_length=100, null=True) # TODO: define choices
-
+    transportation = models.CharField(max_length=10,
+        choices=[("train", "train"), ("truck", "truck"), ("ship", "ship"), ("plane", "plane"), ("others", "others")],
+        default="others")
+    delivery = models.CharField(max_length=10,
+        choices=[("internal", "internal"), ("in", "in"), ("out", "out")], default="internal")
     energy_goods = models.PositiveIntegerField(default=0) # in kWh
     frequency = models.PositiveIntegerField(default=0) # rides per year
 

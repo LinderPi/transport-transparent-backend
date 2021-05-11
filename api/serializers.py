@@ -9,8 +9,5 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
 class RouteSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Route
-        fields = ['id', 'delivery', 'start', 'end', 'product', 'quantity', 'duration_max', 'distance_train',
-                  'duration_train', 'energy_train', 'distance_truck', 'duration_truck', 'energy_truck', 'distance_ship',
-                  'duration_ship', 'energy_ship', 'distance_plane', 'duration_plane', 'energy_plane', 'distance_bike',
-                  'duration_bike', 'energy_bike', 'name_others', 'distance_others', 'duration_others', 'energy_others',
+        fields = ['id', 'start', 'end', 'distance', 'duration', 'quantity', 'transportation', 'delivery',
                   'energy_goods', 'frequency']
