@@ -138,9 +138,9 @@ def evaluateCompany(company):
         'emissions': {
             'bahn': emissions_train * 100 / total_emissions,
             'lkw': emissions_truck * 100 / total_emissions,
-            'schiff': emissions_ship / total_emissions,
-            'flug': emissions_plane / total_emissions,
-            'sonstige': emissions_others / total_emissions,
+            'schiff': emissions_ship * 100 / total_emissions,
+            'flug': emissions_plane * 100 / total_emissions,
+            'sonstige': emissions_others * 100 / total_emissions,
         }
     }
 
