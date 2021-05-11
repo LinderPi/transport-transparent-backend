@@ -32,7 +32,7 @@
     <img src="{% static 'gold.png'%}"> 
   {% endif %}
 </td>
-      <td class="col-sm-5"><a href="company/{{company.id}}">{{ company.name }}</a></td>
+      <td class="col-sm-5"><a href="/company/{{company.id}}">{{ company.name }}</a></td>
       <td class="col-sm-2">{% for i in company.zulieferung_yellow %}<span class="yellow glyphicon glyphicon-star"></span>{% endfor %} {% for i in company.zulieferung_gray %}<span class="gray glyphicon glyphicon-star"></span>{% endfor %}</td>
        <td class="col-sm-2">{% for i in company.intern_yellow %}<span class="yellow glyphicon glyphicon-star"></span>{% endfor %} {% for i in company.intern_gray %}<span class="gray glyphicon glyphicon-star"></span>{% endfor %}</td>
        <td class="col-sm-2">{% for i in company.zustellung_yellow %}<span class="yellow glyphicon glyphicon-star"></span>{% endfor %} {% for i in company.zustellung_gray %}<span class="gray glyphicon glyphicon-star"></span>{% endfor %}</td>
