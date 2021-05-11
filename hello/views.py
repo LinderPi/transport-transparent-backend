@@ -1,28 +1,77 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
-from api.models import Company
+from api.models import Company, Route
 from .models import Greeting
 
+import logging
+import math
 import pandas as pd
 
-import logging
 logger = logging.getLogger(__name__)
 
-# Create your views here.
 def index(request):
-    # return HttpResponse('Hello from Python!')
     return render(request, "index.html")
 
 def calculator(request):
     if request.method == 'GET':
         return render(request, "calculator.html")
 
-    csv_file = request.FILES['file']
-    df_csv = pd.read_csv(csv_file)
-    print(df_csv)
+    try:
+        # read posted CSV file
+        csv_file = request.FILES['file']
+        df_csv = pd.read_csv(csv_file, sep=";")
 
-    return render(request, "calculator.html") # TODO: go to results
+        # iterate through CSV and create routes
+        route_ids = []
+        for _, df_route in df_csv.iterrows():
+            route = Route(
+                delivery=df_route['delivery'],
+                start=df_route['start'],
+                end=df_route['end'],
+                product=df_route['product'],
+                quantity=df_route['quantity'],
+                duration_max=df_route['duration_max'],
+                distance_train=df_route['distance_train'],
+                duration_train=df_route['duration_train'],
+                energy_train=df_route['energy_train'],
+                distance_truck=df_route['distance_truck'],
+                duration_truck=df_route['duration_truck'],
+                energy_truck=df_route['energy_truck'],
+                distance_ship=df_route['distance_ship'],
+                duration_ship=df_route['duration_ship'],
+                energy_ship=df_route['energy_ship'],
+                distance_plane=df_route['distance_plane'],
+                duration_plane=df_route['duration_plane'],
+                energy_plane=df_route['energy_plane'],
+                distance_bike=df_route['distance_bike'],
+                duration_bike=df_route['duration_bike'],
+                energy_bike=df_route['energy_bike'],
+                name_others=(None if math.isnan(df_route['name_others']) else df_route['name_others)']),
+                distance_others=df_route['distance_others'],
+                duration_others=df_route['duration_others'],
+                energy_others=df_route['energy_others'],
+                energy_goods=df_route['energy_goods'],
+                emissions=df_route['emissions'],
+            )
+            route.save()
+            route_ids.append(route.id)
+
+        # create new company if not yet existing
+        company_name = request.POST['company']
+        try:
+            company = Company.objects.get(name=company_name)
+        except Company.DoesNotExist:
+            company = Company(name=company_name)
+            company.save()
+
+        # add routes to company
+        for route_id in route_ids:
+            company.routes.add(route_id)
+
+    except Exception as e:
+        print(e)
+
+    return companies(request)
 
 def about(request):
     return render(request, "calculator.html")
@@ -42,7 +91,7 @@ def evaluateCompany(company):
 #
 # Hier könnten die Auswertung der Daten gemacht werden. Vielleicht ist es aber besser diese direkt beim hochladen zu machen und ins company objekt zu speichern, damit nicht jedes Mal alle Routen analysiert werden müssen.
 #
-    totalemissions = {         
+    totalemissions = {
         'flug': 0,
         'bahn': 0,
         'lkw' : 0,
@@ -52,7 +101,7 @@ def evaluateCompany(company):
     for route in company.routes.all():
         totalemissions['flug'] += route.distance_plane * route.quantity * 20
 
-    
+
     zulieferung = 4
     intern = 3
     zustellung = 1
@@ -83,7 +132,7 @@ def company(request, pk):
 
 
     context = evaluateCompany(company)
-    
+
 
     return render(request, 'company.html', context)
 
