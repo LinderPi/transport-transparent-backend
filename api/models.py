@@ -3,7 +3,7 @@ from django.db import models
 class Route(models.Model):
     start = models.CharField(max_length=100, null=True) # TODO: define format
     end = models.CharField(max_length=100, null=True) # TODO: define format
-    distance = models.PositiveIntegerField(default=0) # in meters
+    distance = models.PositiveIntegerField(default=0) # in kilometers
     duration = models.PositiveIntegerField(default=0) # in minutes
     quantity = models.PositiveIntegerField(default=0) # in tons
     transportation = models.CharField(max_length=10,

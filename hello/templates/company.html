@@ -7,18 +7,18 @@
   <div class="container">
 
     <h1>{{ name }}</h1>
-    
+
     <p>
-      {% if rating == "bronze" %} 
-        <img src="{% static 'bronze.png'%}"> 
+      {% if rating == "bronze" %}
+        <img src="{% static 'bronze.png'%}">
       {% endif %}
-  
-      {% if rating == "silver" %} 
-      <img src="{% static 'silver.png'%}"> 
+
+      {% if rating == "silver" %}
+      <img src="{% static 'silver.png'%}">
     {% endif %}
-    
-    {% if rating == "gold" %} 
-    <img src="{% static 'gold.png'%}"> 
+
+    {% if rating == "gold" %}
+    <img src="{% static 'gold.png'%}">
   {% endif %}
     </p>
 
@@ -61,14 +61,17 @@ Highcharts.chart('emmissions-chart', {
         name: 'Emissionen',
         colorByPoint: true,
         data: [{
-            name: 'Flugzeug',
-            y: {{ emissions.flug }}
-        }, {
-            name: 'LKW',
+            name: 'Bahn',
             y: {{ emissions.bahn }}
         }, {
-            name: 'Bahn',
+            name: 'LKW',
             y: {{ emissions.lkw }}
+        }, {
+            name: 'Schiff',
+            y: {{ emissions.schiff }}
+        }, {
+            name: 'Flugzeug',
+            y: {{ emissions.flug }}
         }, {
             name: 'Sonstige',
             y: {{ emissions.sonstige }}

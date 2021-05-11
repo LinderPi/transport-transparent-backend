@@ -4,7 +4,6 @@ from api.models import Company, Route
 from .models import Greeting
 
 import logging
-import math
 import pandas as pd
 
 logger = logging.getLogger(__name__)
@@ -70,19 +69,56 @@ def companies(request):
     return render(request, "companies.html", context)
 
 def evaluateCompany(company):
-#
-# Hier könnten die Auswertung der Daten gemacht werden. Vielleicht ist es aber besser diese direkt beim hochladen zu machen und ins company objekt zu speichern, damit nicht jedes Mal alle Routen analysiert werden müssen.
-#
-    totalemissions = {
-        'flug': 0,
-        'bahn': 0,
-        'lkw' : 0,
-        'sonstige' : 0
+    emissions = {
+        'internal': {
+            'train': 0,
+            'truck': 0,
+            'ship': 0,
+            'plane': 0,
+            'others': 0,
+        },
+        'in': {
+            'train': 0,
+            'truck': 0,
+            'ship': 0,
+            'plane': 0,
+            'others': 0,
+        },
+        'out': {
+            'train': 0,
+            'truck': 0,
+            'ship': 0,
+            'plane': 0,
+            'others': 0,
+        }
     }
-# Auswertung der Routen
-    for route in company.routes.all():
-        totalemissions['flug'] += route.distance * route.quantity * 20
 
+    emissions_train = emissions_truck = emissions_ship = emissions_plane = emissions_others = 0
+
+    # evaluate routes
+    for route in company.routes.all():
+        if route.transportation == 'train':
+            temp = route.quantity * route.distance * route.frequency * 17
+            emissions[route.delivery]['train'] += temp
+            emissions_train += temp
+        elif route.transportation == 'truck':
+            temp = route.quantity * route.distance * route.frequency * 111
+            emissions[route.delivery]['truck'] += temp
+            emissions_truck += temp
+        elif route.transportation == 'ship':
+            temp = route.quantity * route.distance * route.frequency * 30
+            emissions[route.delivery]['ship'] += temp
+            emissions_ship += temp
+        elif route.transportation == 'plane':
+            temp = route.quantity * route.distance * route.frequency * 713
+            emissions[route.delivery]['plane'] += temp
+            emissions_plane += temp
+        elif route.transportation == 'others':
+            temp = route.quantity * route.distance * route.frequency * 0
+            emissions[route.delivery]['others'] += temp
+            emissions_others += temp
+
+    total_emissions = emissions_train + emissions_truck + emissions_ship + emissions_plane + emissions_others
 
     zulieferung = 4
     intern = 3
@@ -100,12 +136,14 @@ def evaluateCompany(company):
         'zustellung_yellow': range(zustellung),
         'zustellung_gray': range(5-zustellung),
         'emissions': {
-            'flug': 20,
-            'bahn': 40,
-            'lkw' : 30,
-            'sonstige' : 10
+            'bahn': emissions_train * 100 / total_emissions,
+            'lkw': emissions_truck * 100 / total_emissions,
+            'schiff': emissions_ship / total_emissions,
+            'flug': emissions_plane / total_emissions,
+            'sonstige': emissions_others / total_emissions,
         }
     }
+
     return context
 
 def company(request, pk):
