@@ -21,15 +21,15 @@
     <tr class="row">
       <td class="col-sm-1">      
         {% if company.rating == "bronze" %} 
-        <img src="{% static 'bronze.png'%}"> 
+        <img src="{% static 'bronze.png'%}" style="width: 100px;"> 
       {% endif %}
   
       {% if company.rating == "silver" %} 
-      <img src="{% static 'silver.png'%}"> 
+      <img src="{% static 'silver.png'%}" style="width: 100px;"> 
     {% endif %}
     
     {% if company.rating == "gold" %} 
-    <img src="{% static 'gold.png'%}"> 
+    <img src="{% static 'gold.png'%}" style="width: 100px;"> 
   {% endif %}
 </td>
       <td class="col-sm-5"><a href="/company/{{company.id}}">{{ company.name }}</a></td>
