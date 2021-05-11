@@ -27,11 +27,9 @@ def calculator(request):
                 start=df_route['start'],
                 end=df_route['end'],
                 distance=df_route['distance'],
-                duration=df_route['duration'],
                 quantity=df_route['quantity'],
                 transportation=df_route['transportation'],
                 delivery=df_route['delivery'],
-                energy_goods=df_route['energy_goods'],
                 frequency=df_route['frequency'],
             )
             route.save()
